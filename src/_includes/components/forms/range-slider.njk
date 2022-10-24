@@ -1,0 +1,26 @@
+{# Range Sliders #}
+{% if rangeFields %}
+{% if rangesTitle != false %}
+  <div class="sm:col-span-2"><h3 class="text-lg font-medium text-black">{{ rangesTitle | default("Please rate the following") }}</h3></div>
+{% endif %}
+{% for range in rangeFields %}
+  <div class="range-outer">
+    <div class="range-inner">
+      <span class="">
+        {{ range.label_min | default(forms.range.label_min) }}
+      </span>
+      <label>{{ range.label }}</label>
+      <span class="">
+        {{ range.label_max | default(forms.range.label_max) }}
+      </span>
+    </div>
+    <input
+      type="range"
+      min="{{ range.min | default(forms.range.min) }}"
+      max="{{ range.max | default(forms.range.max) }}"
+      step="{{ range.step | default(forms.range.step) }}"
+      name="{{ range.name }}"
+    >
+  </div>
+{% endfor %}
+{% endif %}

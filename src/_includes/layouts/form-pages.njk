@@ -1,0 +1,174 @@
+---
+permalink: "{{ basePath }}/{{page.filePathStem}}/"
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ title }} | {{ site.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="{{ description }}">
+    <meta name="viewport" content="width=device-width">
+    <meta name="referrer" content="noreferrer">
+    <link referrerpolicy="noreferrer">
+    <link rel="icon" href="{{ basePath }}/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="{{ basePath }}/assets/forms.min.css">
+  </head>
+  <body>
+    <!-- Cookie banner -->
+    <div class="bg-blue-500 bottom-0 w-full fixed z-50" id="cookiebanner">
+      <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between flex-wrap">
+          <div class="w-0 flex-1 flex items-center">
+            <span class="flex p-2 rounded-lg">
+              <!-- Heroicon name: outline/speakerphone -->
+              {% include "icons/speakerphone.svg" %}
+            </span>
+            <p class="ml-3 font-medium text-white truncate">
+              <span class="md:hidden"> {{ site.cookie_notice }} </span>
+              <span class="hidden md:inline"> {{ site.cookie_notice }} </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="min-h-screen bg-white">
+      <!-- Page header -->
+      <div class="bg-warm-gray-50">
+        <nav class="relative max-w-7xl mx-auto flex items-center justify-between pt-6 px-6 xl:px-8" aria-label="Global">
+          <div class="flex items-center flex-1">
+            <div class="flex items-center justify-between w-full lg:w-auto">
+              <a href="{{ logo_link | safe }}" title="{{ site.title }}">
+                <span class="sr-only">{{ site.title }}</span>
+                <!-- Logo -->
+                {% include "logo.svg" %}
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <main class="overflow-hidden">
+
+      {# Page Header #}
+      {%-include 'components/forms/page-header.njk'-%}
+
+      <section class="relative bg-white pb-24" aria-labelledby="contactHeading">
+        <div class="absolute w-full h-1/2 bg-warm-gray-50" aria-hidden="true"></div>
+        
+        {% include 'components/forms/dotpattern.html' %}
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="relative bg-white shadow-xl">
+            <h2 id="contactHeading" class="sr-only">{{ title }}</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3">
+  
+              {% include 'components/forms/form-sidebar.njk' %}
+  
+              <div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12 rounded-tr-lg">
+                <h3 class="text-lg font-medium text-warm-gray-900">{{formTitle}}</h3>
+              
+              {# FORM #}
+                <form name="{{ formName }}" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8" enctype="application/x-www-form-urlencoded">
+
+                  {# Full with text fields #}
+                  {% include 'components/forms/full-width-input-fields.njk' %}
+
+                  {% include 'components/forms/customer-details.njk' %}
+
+                  {% include "components/forms/range-slider.njk" %}
+
+                  {# Additional Notes #}
+                  <div class="sm:col-span-2">
+                    <div class="flex justify-between">
+                      <label htmlFor="notes" class="">
+                        {{ forms.labels.notes }}
+                      </label>
+                      <span id="notes-max" class="text-sm text-gray-500">
+                        Max. {{ forms.limits.notes }} characters
+                      </span>
+                    </div>
+                    <div class="mt-1">
+                      <textarea
+                        id="notes"
+                        name="notes"
+                        maxlength="{{ forms.limits.notes }}"
+                        rows="4"
+                        class="form-textarea"
+                        aria-describedby="notes-max"
+                        placeholder="{{ forms.placeholders.notes }}"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-2 sm:flex sm:justify-end">
+                    <button
+                      type="submit"
+                      class="submitBtn"
+                    >
+                      {{ btnText | default('Submit') }}
+                    </button>
+                  </div>
+                </form>
+              {# END FORM #}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      </main>
+
+      <footer class="" aria-labelledby="footerHeading">
+        <h2 id="footerHeading" class="sr-only">Footer</h2>
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+          <p class="text-base text-black xl:text-center">
+            &copy; {% copyrightYear %} <a href="{{ site.mainSite }}" title="{{ site.title }}">{{ site.title }}</a>
+            <span>|</span>
+          <a
+            href="https://github.com/houseofcloth/dyeli-forms-frontend"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </p>
+        </div>
+      </footer>
+    </div>
+    <script nonce="e36aac6a4f48">
+      // Auto-hide cookie banner
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() =>
+          document.getElementById('cookiebanner').classList.add('hidden')
+        , 3000);
+      })
+      // Handle form submission
+      document.forms.{{formName}}.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.querySelector('.submitBtn')
+        submitBtn.innerText = "Sending..."
+        try {
+          const req = await fetch("{{workerFn}}{{formEndpoint}}", {
+            method: "POST",
+            body: new FormData(e.target)
+          });
+          
+          const { res, err } = await req.json()
+
+          if (req.status !== 201)
+            throw new Error(err)
+
+          submitBtn.innerText = "Sent"
+
+        } catch(err) {
+          console.log(err)
+          submitBtn.innerText = "Error"
+        }
+      });
+    </script>
+{%include "components/forms/session-cookie.js.html"%}
+    <!-- Date: {{ buildDate }} -->
+  </body>
+</html>

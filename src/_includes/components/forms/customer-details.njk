@@ -1,0 +1,162 @@
+{# If below another section display section header #}
+{% if hideDetailsHeader !== true %}
+                <div class="sm:col-span-2"><h3 class="text-lg font-medium text-black">{{ forms.sections.customerDetails }}</h3></div>
+{% endif %}
+                <div>
+                  <label htmlFor="first_name" class="">
+                    {{ forms.labels.firstName }}
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="first_name"
+                      id="first_name"
+                      autoComplete="given-name"
+                      placeholder="{{ forms.placeholders.firstName }}"
+                      required
+                      class="form-text-input"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="last_name" class="">
+                    {{ forms.labels.lastName }}
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="last_name"
+                      id="last_name"
+                      autoComplete="family-name"
+                      placeholder="{{ forms.placeholders.lastName }}"
+                      required
+                      class="form-text-input"
+                    />
+                  </div>
+                </div>
+{# Is email optional or not? #}
+{%if emailIsOptional === true %}
+                <div>
+                  <div class="flex justify-between">
+                    <label htmlFor="email" class="">
+                      {{ forms.labels.email }}
+                    </label>
+                    <span id="email-optional" class="text-sm text-gray-500">
+                      {{ forms.labels.optional }}
+                    </span>
+                  </div>
+                  <div class="mt-1">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="{{ forms.placeholders.email }}"
+                      class="form-email-input"
+                      aria-describedby="email-optional"
+                    />
+                  </div>
+                </div>
+{% else %}
+                <div>
+                  <label htmlFor="email" class="">
+                    {{ forms.labels.email }}
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="{{ forms.placeholders.email }}"
+                      required
+                      class="form-email-input"
+                    />
+                  </div>
+                </div>
+{% endif %}
+                <div>
+                  <div class="flex justify-between">
+                    <label htmlFor="phone" class="">
+                      {{ forms.labels.phone }}
+                    </label>
+                    <span id="phone-optional" class="text-sm text-gray-500">
+                      {{ forms.labels.optional }}
+                    </span>
+                  </div>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      autoComplete="tel"
+                      class="form-text-input"
+                      placeholder="{{ forms.placeholders.phone }}"
+                      aria-describedby="phone-optional"
+                    />
+                  </div>
+                </div>
+{# Only require address for certain forms #}
+{% if includeAddress === true %}
+                <div class="">
+                  <label htmlFor="street" class="">
+                    {{ forms.labels.street }}
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="street"
+                      id="street"
+                      placeholder="{{ forms.placeholders.street }}"
+                      class="form-text-input"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="">
+                  <label htmlFor="suburb" class="">
+                    {{ forms.labels.suburb }}
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="suburb"
+                      id="suburb"
+                      placeholder="{{ forms.placeholders.suburb }}"
+                      class="form-text-input"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="">
+                  <label htmlFor="suburb" class="">
+                    {{ forms.labels.state }}
+                  </label>
+                  <div class="mt-1">
+                    <select name="state" id="state" required class="form-select-input">
+                      {% for region in forms.regions %}
+                        <option value="{{ region.value }}">{{ region.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="">
+                  <label htmlFor="postcode" class="">
+                    {{ forms.labels.postcode }}
+                  </label>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      name="postcode"
+                      id="postcode"
+                      pattern="{{ forms.patterns.postcode }}"
+                      placeholder="{{ forms.placeholders.postcode }}"
+                      class="form-text-input"
+                      required
+                    />
+                  </div>
+                </div>
+{% endif %}

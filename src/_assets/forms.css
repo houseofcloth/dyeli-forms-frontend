@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+	@apply text-blue-500 underline
+}
+a:hover {
+  @apply text-blue-400 decoration-dashed
+}
+#formsidebar a {
+  @apply text-white underline
+}
+#formsidebar a:hover {
+  @apply decoration-dashed
+}
+svg#hclogo {
+  @apply h-12 fill-black
+}
+svg#speakerphone {
+  @apply h-6 w-6 text-white
+}
+
+button[type=submit] {
+  @apply mt-2 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:w-auto
+}
+
+input[type=text],
+input[type=email],
+select,
+textarea {
+  @apply py-3 px-4 block w-full shadow-sm text-black focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md
+}
+select {
+  background-color: #fff;
+}
+
+form label {
+  @apply block text-sm font-medium text-black
+}
+fieldset {
+  @apply inline-flex justify-between
+}
+
+legend {
+  @apply mb-2
+}
+
+fieldset input[type="radio"] {
+  @apply m-2 rounded-full text-blue-500
+}
+input[type="range"] {
+  @apply mt-2 rounded-full text-blue-500 bg-blue-500 w-full appearance-none
+}
+.range-inner {
+  @apply flex justify-between text-center
+}
+.range-inner span {
+  @apply text-sm text-gray-500 
+}
+.range-inner span {
+  min-width: 20%;
+}
+.range-inner span:first-child {
+ @apply text-left
+}
+.range-inner span:last-child {
+ @apply text-right
+}
+.range-inner label {
+  @apply flex-grow
+}

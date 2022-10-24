@@ -1,0 +1,35 @@
+{% if fwTextFields %}
+<div class="sm:col-span-2">
+  <label htmlFor="{{ fwTextFields.label | lower }}1" class="">
+    {{ fwTextFields.label }} 1
+  </label>
+  <div class="mt-1">
+    <input
+      type="text"
+      name="{{ fwTextFields.label | lower }}1"
+      id="{{ fwTextFields.label | lower }}1"
+      placeholder="{{ fwTextFields.placeholder | default('') }}"
+      class="form-text-input"
+      required
+    />
+  </div>
+</div>
+  {% if fwTextFields.count > 1 %}
+    {%for num in range(2,6) %}
+    <div class="sm:col-span-2">
+      <label htmlFor="{{ fwTextFields.label | lower }}{{num}}" class="">
+        {{ fwTextFields.label }} {{num}}
+      </label>
+      <div class="mt-1">
+        <input
+          type="text"
+          name="{{ fwTextFields.label | lower }}{{num}}"
+          id="{{ fwTextFields.label | lower }}{{num}}"
+          placeholder="{{ fwTextFields.placeholder | default('') }}"
+          class="form-text-input"
+        />
+      </div>
+    </div>
+    {%endfor%}
+  {% endif %}
+{% endif %}

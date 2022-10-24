@@ -1,0 +1,52 @@
+{
+  "private": true,
+  "name": "dyeli",
+  "version": "1.0.0",
+  "description": "Link in bio landing page in a Cloudflare Worker.",
+  "homepage": "https://dye.li",
+  "author": {
+    "name": "House of Cloth",
+    "url": "https://houseofcloth.com.au"
+  },
+  "contributors": [
+    {
+      "name": "Jasiq Li",
+      "url": "https://siq.li"
+    },
+    {
+      "name": "Coel May",
+      "url": "https://coelmay.net"
+    }
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.1",
+    "@cloudflare/kv-asset-handler": "^0.2.0",
+    "@tailwindcss/forms": "^0.5.2",
+    "autoprefixer": "^10.4.8",
+    "clean-css": "^5.3.1",
+    "cssnano": "^5.1.12",
+    "dotenv": "^16.0.1",
+    "html-minifier": "^4.0.0",
+    "js-yaml": "^4.1.0",
+    "marked": "^4.1.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.16",
+    "postcss-clean": "^1.2.2",
+    "postcss-cli": "^10.0.0",
+    "postcss-import": "^14.1.0",
+    "tailwindcss": "^3.1.8"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "clean": "rm -rf dist",
+    "serve:postcss": "postcss src/_assets/forms.css -o src/assets/forms.min.css --watch --verbose",
+    "serve:11ty": "eleventy --serve",
+    "start": "run-p serve:*",
+    "build:postcss": "NODE_ENV=production postcss src/_assets/forms.css -o src/assets/forms.min.css",
+    "build:11ty": "NODE_ENV='production' eleventy",
+    "build": "run-s build:*",
+    "prepublish": "run-s build",
+    "publish": "wrangler publish"
+  }
+}

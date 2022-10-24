@@ -1,0 +1,53 @@
+---
+# Section titles
+sections:
+  customerDetails: Your Details
+  sidebarTitle: Notes
+labels:
+  firstName: First Name
+  lastName: Last Name
+  email: Email
+  phone: Phone
+  street: Street
+  suburb: Town/Suburb
+  state: State
+  postcode: Postcode
+  optional: Optional
+  notes: Notes
+placeholders:
+  firstName: Sam
+  lastName: Citizen
+  email: name@example.com
+  phone: 0456 789 123
+  street: 123 Your St
+  suburb: Your Town/Suburb
+  postcode: 3456
+  notes: Ribbon crotch length a-line satin denim cupro yarn lawn. Lace fat quarter toweling casing besom pocket. Girth coating pants hemming tape bust dart baste leather casing coating. Jacquard cutting line hem yoke thread warp edge stitch ikat hemming tape felt. Allowance denim twill tape interfacing lining dobby top stitch petersham.
+range:
+  label_min: Poor
+  label_max: Excellent
+  min: 1
+  max: 9
+  step: 1
+# Regions to send to
+regions:
+  - name: Australian Capital Territory
+    value: ACT
+  - name: New South Wales
+    value: NSW
+  - name: Northern Territory
+    value: NT
+  - name: Queensland
+    value: QLD
+  - name: South Australia
+    value: SA
+  - name: Tasmainia
+    value: TAS
+  - name: Victoria
+    value: VIC
+  - name: Western Australia
+    value: WA
+patterns:
+  postcode: '(\d){4}'
+limits:
+  notes: 500

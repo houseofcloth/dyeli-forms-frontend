@@ -1,0 +1,19 @@
+name = "dyeli-forms-frontend"
+main = "worker/index.js"
+compatibility_date = "2022-10-22"
+minify = true
+# Don't use on workers URL
+workers_dev = false
+# Set up custom route
+route = { pattern = "dye.li/forms/*", zone_name = "dye.li" }
+# Bind services
+services = [
+  { binding = "FORMS", service = "dyeli-forms-backend", environment = "production" },
+  # Using @siqli/simple-session
+  { binding = "SESSION", service = "simple-session", environment = "production" }
+]
+# KV Site
+[site]
+  # If basePath is set in .eleventy.js to something other than forms, change
+  # it here too.
+  bucket = "./dist/forms"
